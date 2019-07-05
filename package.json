@@ -1,14 +1,10 @@
 {
-  "name": "vscode-standardjs-snippets",
-  "displayName": "JavaScript standardjs styled snippets",
-  "publisher": "capaj",
+  "name": "bratteng-vscode-standardjs-snippets",
+  "displayName": "Bratteng JavaScript standardjs styled snippets",
+  "publisher": "omBratteng",
   "icon": "images/javascript.png",
   "version": "0.8.7",
   "description": "standardjs styled javascript snippets for visual studio code",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/capaj/vscode-standardjs-snippets.git"
-  },
   "engines": {
     "vscode": "0.10.x"
   },
@@ -17,10 +13,6 @@
   },
   "author": "capajj@gmail.com",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/capaj/vscode-standardjs-snippets/issues"
-  },
-  "homepage": "https://github.com/capaj/vscode-standardjs-snippets#readme",
   "categories": [
     "Snippets"
   ],
@@ -40,6 +32,14 @@
       },
       {
         "language": "typescriptreact",
+        "path": "./snippets/javascript.json"
+      },
+      {
+        "language": "jsx",
+        "path": "./snippets/javascript.json"
+      },
+      {
+        "language": "jsx-attr",
         "path": "./snippets/javascript.json"
       },
       {
