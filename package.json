@@ -1,63 +1,68 @@
 {
-  "name": "bratteng-vscode-standardjs-snippets",
-  "displayName": "Bratteng JavaScript standardjs styled snippets",
-  "publisher": "omBratteng",
-  "icon": "images/javascript.png",
-  "version": "0.8.7",
-  "description": "standardjs styled javascript snippets for visual studio code",
-  "engines": {
-    "vscode": "0.10.x"
-  },
-  "scripts": {
-    "pub": "vsce publish"
-  },
-  "author": "capajj@gmail.com",
-  "license": "MIT",
-  "categories": [
-    "Snippets"
-  ],
-  "contributes": {
-    "snippets": [
-      {
-        "language": "javascript",
-        "path": "./snippets/javascript.json"
-      },
-      {
-        "language": "typescript",
-        "path": "./snippets/javascript.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./snippets/javascript.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./snippets/javascript.json"
-      },
-      {
-        "language": "jsx",
-        "path": "./snippets/javascript.json"
-      },
-      {
-        "language": "jsx-attr",
-        "path": "./snippets/javascript.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./snippets/react.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./snippets/react-ts.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./snippets/apollo.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./snippets/apollo.json"
-      }
-    ]
-  }
+	"name": "bratteng-vscode-standardjs-snippets",
+	"displayName": "Bratteng JavaScript standardjs styled snippets",
+	"publisher": "omBratteng",
+	"icon": "images/javascript.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/omBratteng/vscode-standardjs-snippets"
+	},
+	"version": "1.0.0",
+	"description": "standardjs styled javascript snippets for visual studio code",
+	"engines": {
+		"vscode": "0.10.x"
+	},
+	"scripts": {
+		"pub": "vsce publish"
+	},
+	"author": {
+		"name": "Ole-Martin Bratteng",
+		"url": "https://bratteng.solutions"
+	},
+	"license": "BSD-3-Clause",
+	"categories": ["Snippets"],
+	"contributes": {
+		"snippets": [
+			{
+				"language": "javascript",
+				"path": "./snippets/javascript.json"
+			},
+			{
+				"language": "typescript",
+				"path": "./snippets/javascript.json"
+			},
+			{
+				"language": "javascriptreact",
+				"path": "./snippets/javascript.json"
+			},
+			{
+				"language": "typescriptreact",
+				"path": "./snippets/javascript.json"
+			},
+			{
+				"language": "jsx",
+				"path": "./snippets/javascript.json"
+			},
+			{
+				"language": "jsx-attr",
+				"path": "./snippets/javascript.json"
+			},
+			{
+				"language": "javascriptreact",
+				"path": "./snippets/react.json"
+			},
+			{
+				"language": "typescriptreact",
+				"path": "./snippets/react-ts.json"
+			},
+			{
+				"language": "javascriptreact",
+				"path": "./snippets/apollo.json"
+			},
+			{
+				"language": "typescriptreact",
+				"path": "./snippets/apollo.json"
+			}
+		]
+	}
 }
