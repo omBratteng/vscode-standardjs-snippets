@@ -1,11 +1,13 @@
 {
-	"setTimeout": {
-		"prefix": "st",
-		"body": "setTimeout(() => {\n\t${0}\n}, ${1:delay})"
-	},
 	"setInterval": {
-		"prefix": "si",
-		"body": "setInterval(() => {\n\t${0}\n}, ${1:delay})"
+		"prefix": "sti",
+		"body": "setInterval(() => {\n\t${2}\n}, ${0:intervalInms});",
+		"description": "Executes the given function at specified intervals in ES6 syntax"
+	},
+	"setTimeOut": {
+		"prefix": "sto",
+		"body": "setTimeout(() => {\n\t${2}\n}, ${1:delayInms});",
+		"description": "Executes the given function after the specified delay in ES6 syntax"
 	},
 	"setImmediate": {
 		"prefix": "sim",
@@ -42,10 +44,6 @@
 	"Promise.reject": {
 		"prefix": "prj",
 		"body": "Promise.reject(${1:value})"
-	},
-	"Promise": {
-		"prefix": "p",
-		"body": "Promise"
 	},
 	"new Promise": {
 		"prefix": "np",
@@ -97,24 +95,44 @@
 	},
 	"require": {
 		"prefix": "rq",
-		"body": "require('${1:module}')"
+		"body": "require('${1:module}')",
+		"description": "Require a package"
 	},
 	"const module = require('module')": {
 		"prefix": "cr",
 		"body": "const ${1:module} = require('${1:module}')"
 	},
+
 	"exports.member": {
 		"prefix": "em",
 		"body": "exports.${1:member} = ${2:value}"
 	},
-	"module.exports": {
+	"moduleExports": {
 		"prefix": "me",
-		"body": "module.exports = ${1:name}"
+		"body": "module.exports = {\n\t$0\n};\n",
+		"description": "Module exports from Common JS, node syntax at ES6"
 	},
-	"module as class": {
-		"prefix": "mec",
-		"body": "class ${1:name} {\n\tconstructor (${2:arguments}) {\n\t\t${0}\n\t}\n}\n\nmodule.exports = ${1:name}\n"
+	"exportNamedFunction": {
+		"prefix": "enf",
+		"body": "export const ${1:functionName} = (${2:params}) => {\n\t$0\n};\n",
+		"description": "Export named function in ES6 syntax"
 	},
+	"exportDefaultFunction": {
+		"prefix": "edf",
+		"body": "export default (${1:params}) => {\n\t$0\n};\n",
+		"description": "Export default function in ES6 syntax"
+	},
+	"exportClass": {
+		"prefix": "ecl",
+		"body": "export default class ${1:className} {\n\t$0\n};\n",
+		"description": "Export default class in ES6 syntax"
+	},
+	"exportClassExtends": {
+		"prefix": "ece",
+		"body": "export default class ${1:className} extends ${2:baseclassName} {\n\t$0\n};\n",
+		"description": "Export default class which extends a base one in ES6 syntax"
+	},
+
 	"event handler": {
 		"prefix": "on",
 		"body": "${1:emitter}.on('${2:event}', (${3:arguments}) => {\n\t${0}\n})"
@@ -191,10 +209,22 @@
 		"prefix": "rc",
 		"body": "${1:el}.removeChild(${2:elem})"
 	},
-	"forEach loop": {
-		"prefix": "fe",
-		"body": "${1:iterable}.forEach((${2:item}) => {\n\t${0}\n})"
+	"forEach": {
+		"prefix": "fre",
+		"body": "${1:array}.forEach(${2:currentItem} => {\n\t${0}\n});",
+		"description": "Creates a forEach statement in ES6 syntax"
 	},
+	"forOf": {
+		"prefix": "fof",
+		"body": "for (const ${1:item} of ${2:object}) {\n\t${0}\n}",
+		"description": "Iterating over property names of iterable objects"
+	},
+	"forIn": {
+		"prefix": "fin",
+		"body": "for (const ${1:item} in ${2:object}) {\n\t${0}\n}",
+		"description": "Iterating over property values of iterable objects"
+	},
+
 	"map": {
 		"prefix": "map",
 		"body": "${1:iterable}.map((${2:item}) => {\n\t${0}\n})"
@@ -235,14 +265,18 @@
 		"prefix": "c",
 		"body": "const ${1:name}"
 	},
-	"const statement from destructuring": {
-		"prefix": "cd",
-		"body": "const { ${2:prop} } = ${1:value}"
+
+	"destructingObject": {
+		"prefix": "dob",
+		"body": "const {${2:propertyName}} = ${1:objectToDestruct};",
+		"description": "Creates and assigns a local variable using object destructing"
 	},
-	"const statement from array destructuring": {
-		"prefix": "cad",
-		"body": "const [ ${2:prop} ] = ${1:value}"
+	"destructingArray": {
+		"prefix": "dar",
+		"body": "const [${2:propertyName}] = ${1:arrayToDestruct};",
+		"description": "Creates and assigns a local variable using array destructing"
 	},
+
 	"const assignment awaited": {
 		"prefix": "ca",
 		"body": "const ${1:name} = await ${2:value}"
@@ -303,17 +337,30 @@
 		"prefix": "edf",
 		"body": "export default function ${1:name} (${2:arguments}) {\n\t${0}\n}"
 	},
-	"import module": {
-		"prefix": "im",
-		"body": "import ${2:*} from '${1:module}'"
+	"import": {
+		"prefix": "imp",
+		"body": "import ${2:moduleName} from '${1:module}';$0",
+		"description": "Imports entire module statement in ES6 syntax"
 	},
-	"import module as": {
-		"prefix": "ia",
-		"body": "import ${2:*} as ${3:name} from '${1:module}'"
+	"importNoModuleName": {
+		"prefix": "imn",
+		"body": "import '${1:module}';$0",
+		"description": "Imports entire module in ES6 syntax without module name"
 	},
-	"import module destructured": {
-		"prefix": "id",
-		"body": "import {$2} from '${1:module}'"
+	"importDestructing": {
+		"prefix": "imd",
+		"body": "import { $2 } from '${1:module}';$0",
+		"description": "Imports only a portion of the module in ES6 syntax"
+	},
+	"importEverything": {
+		"prefix": "ime",
+		"body": "import * as ${2:alias} from '${1:module}';$0",
+		"description": "Imports everything as alias from the module in ES6 syntax"
+	},
+	"importAs": {
+		"prefix": "ima",
+		"body": "import { ${2:originalName} as ${3:alias} } from '${1:module}';$0",
+		"description": "Imports a specific portion of the module by assigning a local alias in ES6 syntax"
 	},
 	"typeof": {
 		"prefix": "to",
@@ -355,14 +402,6 @@
 		"prefix": "fl",
 		"body": "for (let ${1:i} = 0, ${2:len} = ${3:iterable}.length; ${1:i} < ${2:len}; ${1:i}++) {\n\t${0}\n}"
 	},
-	"for in loop": {
-		"prefix": "fi",
-		"body": "for (let ${1:key} in ${2:source}) {\n\tif (${2:source}.hasOwnProperty(${1:key})) {\n\t\t${0}\n\t}\n}"
-	},
-	"for of loop": {
-		"prefix": "fo",
-		"body": "for (const ${1:key} of ${2:source}) {\n\t${0}\n}"
-	},
 	"while iteration decrementing": {
 		"prefix": "wid",
 		"body": "let ${1:array}Index = ${1:array}.length\nwhile (${1:array}Index--) {\n\t${0}\n}"
@@ -387,17 +426,19 @@
 		"prefix": "tcf",
 		"body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
 	},
-	"anonymous function": {
-		"prefix": "fan",
-		"body": "function (${1:arguments}) {${0}}"
+	"anonymousFunction": {
+		"prefix": "anfn",
+		"body": "(${1:params}) => {\n\t${2}\n}",
+		"description": "Creates an anonymous function in ES6 syntax"
 	},
-	"named function": {
-		"prefix": "fn",
-		"body": "function ${1:name} (${2:arguments}) {\n\t${0}\n}"
+	"namedFunction": {
+		"prefix": "nfn",
+		"body": "const ${1:name} = (${2:params}) => {\n\t${3}\n}",
+		"description": "Creates a named function in ES6 syntax"
 	},
 	"async function": {
 		"prefix": "asf",
-		"body": "async function (${1:arguments}) {\n\t${0}\n}"
+		"body": "async (${1:params}) => {\n\t${2}\n}"
 	},
 	"async arrow function": {
 		"prefix": "aa",
@@ -431,30 +472,83 @@
 		"prefix": "gfn",
 		"body": "function* ${1:name}(${2:arguments}) {\n\t${0}\n}"
 	},
-	"console.log": {
+
+	"consoleAssert": {
+		"prefix": "cas",
+		"body": "console.assert(${1:expression}, ${2:object});",
+		"description": "If the specified expression is false, the message is written to the console along with a stack trace"
+	},
+	"consoleClear": {
+		"prefix": "ccl",
+		"body": "console.clear();",
+		"description": "Clears the console"
+	},
+	"consoleCount": {
+		"prefix": "cco",
+		"body": "console.count(${1:label});",
+		"description": "Writes the the number of times that count() has been invoked at the same line and with the same label"
+	},
+	"consoleDir": {
+		"prefix": "cdi",
+		"body": "console.dir(${1:object});",
+		"description": "Prints a JavaScript representation of the specified object"
+	},
+	"consoleError": {
+		"prefix": "cer",
+		"body": "console.error(${1:object});",
+		"description": "Displays a message in the console and also includes a stack trace from where the method was called"
+	},
+	"consoleGroup": {
+		"prefix": "cgr",
+		"body": "console.group(\"${1:label}\");",
+		"description": "Groups and indents all following output by an additional level, until console.groupEnd() is called."
+	},
+	"consoleGroupEnd": {
+		"prefix": "cge",
+		"body": "console.groupEnd();",
+		"description": "Closes out the corresponding console.group()."
+	},
+	"consoleLog": {
 		"prefix": "cl",
-		"body": "console.log(${0})"
+		"body": "console.log(${1:object});",
+		"description": "Displays a message in the console"
 	},
-	"console.log a variable": {
-		"prefix": "cv",
-		"body": "console.log('${0}:', ${0})"
+	"consoleLogObject": {
+		"prefix": "clo",
+		"body": "console.log('${1:object} :', ${1:object});",
+		"description": "Displays an object in the console with its name"
 	},
-	"console.error": {
-		"prefix": "ce",
-		"body": "console.error(${0})"
+	"consoleTrace": {
+		"prefix": "ctr",
+		"body": "console.trace(${1:object});",
+		"description": "Prints a stack trace from the point where the method was called"
 	},
-	"console.warn": {
-		"prefix": "cw",
-		"body": "console.warn(${0})"
+	"consoleWarn": {
+		"prefix": "cwa",
+		"body": "console.warn(${1:object});",
+		"description": "Displays a message in the console but also displays a yellow warning icon along with the logged message"
 	},
-	"console.dir": {
-		"prefix": "cod",
-		"body": "console.dir('${0}:', ${0})"
+	"consoleInfo": {
+		"prefix": "cin",
+		"body": "console.info(${1:object});",
+		"description": "Displays a message in the console but also displays a blue information icon along with the logged message"
 	},
-	"constructor": {
-		"prefix": "cn",
-		"body": "constructor () {\n\t${0}\n}"
+	"consoleTable": {
+		"prefix": "clt",
+		"body": "console.table(${1:object});",
+		"description": "Displays tabular data as a table."
 	},
+	"consoleTime": {
+		"prefix": "cti",
+		"body": "console.time(${1:object});",
+		"description": "Sets starting point for execution time measurement"
+	},
+	"consoleTimeEnd": {
+		"prefix": "cte",
+		"body": "console.timeEnd(${1:object});",
+		"description": "Sets end point for execution time measurement"
+	},
+
 	"use strict": {
 		"prefix": "uss",
 		"body": "'use strict'"
@@ -468,21 +562,30 @@
 		"body": "JSON.parse($0)"
 	},
 	"method": {
-		"prefix": "m",
-		"body": "${1:method} (${2:arguments}) {\n\t${0}\n}"
+		"prefix": "met",
+		"body": "${1:methodName}(${2:params}) {\n\t${0}\n}",
+		"description": "Creates a method inside a class in ES6 syntax"
 	},
-	"getter": {
+	"constructor": {
+		"prefix": "con",
+		"body": "constructor(${1:params}) {\n\t${0}\n}",
+		"description": "Add default constructor in a class in ES6 syntax"
+	},
+	"propertyGet": {
 		"prefix": "get",
-		"body": "get ${1:property} () {\n\t${0}\n}"
+		"body": "get ${1:propertyName}() {\n\treturn this.${0};\n}",
+		"description": "Creates a getter property inside a class in ES6 syntax"
 	},
-	"setter": {
+	"propertySet": {
 		"prefix": "set",
-		"body": "set ${1:property} (${2:value}) {\n\t${0}\n}"
+		"body": "set ${1:propertyName}(${2:value}) {\n\t${0};\n}",
+		"description": "Creates a setter property inside a class in ES6 syntax"
 	},
-	"getter + setter": {
+	"propertyGet + propertySet": {
 		"prefix": "gs",
 		"body": "get ${1:property} () {\n\t${0}\n}\nset ${1:property} (${2:value}) {\n\t\n}"
 	},
+
 	"prototype method": {
 		"prefix": "proto",
 		"body": "${1:Class}.prototype.${2:method} = function (${3:arguments}) {\n\t${0}\n}"
@@ -547,9 +650,15 @@
 		"prefix": "ra",
 		"body": "return [\n\t${0}\n]"
 	},
-	"return promise": {
-		"prefix": "rp",
-		"body": "return new Promise((resolve, reject) => {\n\t${0}\n})"
+	"promise": {
+		"prefix": "prom",
+		"body": "return new Promise((resolve, reject) => {\n\t${1}\n});",
+		"description": "Creates and returns a new Promise in the standard ES6 syntax"
+	},
+	"thenCatch": {
+		"prefix": "thenc",
+		"body": ".then((${1:result}) => {\n\t${2}\n}).catch((${3:err}) => {\n\t${4}\n});",
+		"description": "Add the .then and .catch methods to handle promises"
 	},
 	"wrap selection in arrow function": {
 		"prefix": "wrap selection in arrow function",
